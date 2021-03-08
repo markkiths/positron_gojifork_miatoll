@@ -3,6 +3,8 @@
 # Makefile for the touchscreen drivers.
 #
 
+subdir-ccflags-y := -finline-functions -ftree-vectorize -funroll-loops
+
 # Each configuration option enables a list of files.
 
 obj-$(CONFIG_TOUCHSCREEN_FTS_SPI)               += ft8756_spi/
