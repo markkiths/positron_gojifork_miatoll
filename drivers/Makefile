@@ -196,3 +196,4 @@ obj-$(CONFIG_GNSS)		+= gnss/
 obj-$(CONFIG_KSU) += kernelsu/
 
 obj-$(CONFIG_MILLET)		+= mihw/
+obj-y                   += fragmention/
