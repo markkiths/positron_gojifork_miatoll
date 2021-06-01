@@ -2,6 +2,7 @@
  * x_tables core - Backend for {ip,ip6,arp}_tables
  *
  * Copyright (C) 2006-2006 Harald Welte <laforge@netfilter.org>
+ * Copyright (C) 2021 XiaoMi, Inc.
  * Copyright (C) 2006-2012 Patrick McHardy <kaber@trash.net>
  *
  * Based on existing ip_tables code which is
@@ -1239,9 +1240,6 @@ xt_replace_table(struct xt_table *table,
 	 */
 	smp_wmb();
 	table->private = newinfo;
-
-	/* make sure all cpus see new ->private value */
-	smp_mb();
 
 	/*
 	 * Even though table entries have now been swapped, other CPU's
