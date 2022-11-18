@@ -10,6 +10,7 @@
 #include <linux/fs.h>
 #include <linux/nls.h>
 
+#include "compat.h"
 #include "debug.h"
 #include "ntfs.h"
 #include "ntfs_fs.h"
