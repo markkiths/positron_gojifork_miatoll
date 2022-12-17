@@ -1858,7 +1858,20 @@ static ssize_t disksize_store(struct device *dev,
 	struct zram *zram = dev_to_zram(dev);
 	int err;
 
-	disksize = PAGE_ALIGN((u64)SZ_2G);
+	struct sysinfo i;
+	static unsigned short create_disksize __read_mostly;
+	si_meminfo(&i);
+	if (i.totalram << (PAGE_SHIFT-10) > 6144ull * 1024) {
+	  // Use 4GB disk size for devices with more than 6GB of RAM
+	  create_disksize = 4;
+	} else if (i.totalram << (PAGE_SHIFT-10) > 4096ull * 1024) {
+	   // Use 3GB disk size for devices with less than 6GB of RAM
+	  create_disksize = 3;
+	} else {
+	   // Use 2GB disk size for devices with less than 4GB of RAM
+	  create_disksize = 2;
+	}
+	disksize = (u64)SZ_1G * create_disksize;
 
 	down_write(&zram->init_lock);
 	if (init_done(zram)) {
